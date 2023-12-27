@@ -19,4 +19,21 @@ describe("First test suit", () => {
         .find('nb-checkbox')
         .click({force: true})
     })
+    it.only("save subject of the command", ()=>{
+        cy.visit("/");
+        cy.contains("Forms").click();
+        cy.contains("Form Layouts").click({force: true});
+        // cy.contains("nb-card","Using the Grid").find("[for='inputEmail1']").should('contain', "Email")
+        
+        // const usingGrid = cy.contains("nb-card","Using the Grid");
+        // usingGrid.find("[for='inputEmail1']").should('contain', "Email")
+        // usingGrid.find("[for='inputPassword2']").should('contain', "Password")
+        cy.contains("nb-card","Using the Grid").as("usingGrid");
+        cy.get("@usingGrid").find("[for='inputEmail1']").should('contain', "Email");
+        cy.get("@usingGrid").find("[for='inputPassword2']").should('contain', "Password");
+
+        cy.contains("nb-card","Using the Grid").then( usingTheGridForm => {
+            cy.wrap(usingTheGridForm).find("[for='inputEmail1']").should('contain', "Email");
+        })
+    })
 })
